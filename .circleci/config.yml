@@ -21,7 +21,7 @@ aliases:
        mv miniconda $WORKDIR/
        export PATH=$WORKDIR/miniconda/bin:$PATH
        conda config --set always_yes yes --set changeps1 no
-       echo "XXXXXX conda --version: "
+       echo "XXX conda --version: "
        conda --version
        #
        # do not do conda update for now, updating from 4.7.10 to 4.7.12 failed
@@ -1393,6 +1393,25 @@ workflows:
           requires:
             - macos_py3_miniconda
 
+      - macos_cdat-v82-nox_py2:
+          requires:
+            - macos_py2_miniconda
+      - macos_cdat-v82-nox_py3.6:
+          requires:
+            - macos_py3_miniconda
+      - macos_cdat-v82-nox_py3.7:
+          requires:
+            - macos_py3_miniconda
+      - macos_cdat-v82_py2:
+          requires:
+            - macos_py2_miniconda
+      - macos_cdat-v82_py3.6:
+          requires:
+            - macos_py3_miniconda
+      - macos_cdat-v82_py3.7:
+          requires:
+            - macos_py3_miniconda
+
       - linux_nightly_py2:      
           requires:
             - linux_py2_miniconda
@@ -1410,6 +1429,25 @@ workflows:
           requires:
             - linux_py3_miniconda
       - linux_cdat_v82_latest_channel_py3.7:
+          requires:
+            - linux_py3_miniconda
+
+      - linux_cdat-v82-nox_py2:
+          requires:
+            - linux_py2_miniconda
+      - linux_cdat-v82-nox_py3.6:
+          requires:
+            - linux_py3_miniconda
+      - linux_cdat-v82-nox_py3.7:
+          requires:
+            - linux_py3_miniconda
+      - linux_cdat-v82_py2:
+          requires:
+            - linux_py2_miniconda
+      - linux_cdat-v82_py3.6:
+          requires:
+            - linux_py3_miniconda
+      - linux_cdat-v82_py3.7:
           requires:
             - linux_py3_miniconda
 
@@ -1431,3 +1469,17 @@ workflows:
             - macos_cdat_v82_latest_channel_py3.7
             - linux_cdat_v82_latest_channel_py3.7
 
+      - collect_yamls_test_results:
+          requires:
+            - macos_cdat-v82-nox_py2
+            - macos_cdat-v82-nox_py3.6
+            - macos_cdat-v82-nox_py3.7
+            - macos_cdat-v82_py2
+            - macos_cdat-v82_py3.6
+            - macos_cdat-v82_py3.7
+            - linux_cdat-v82-nox_py2
+            - linux_cdat-v82-nox_py3.6
+            - linux_cdat-v82-nox_py3.7
+            - linux_cdat-v82_py2
+            - linux_cdat-v82_py3.6
+            - linux_cdat-v82_py3.7
