@@ -33,6 +33,7 @@ def install_packages_for_tests(conda_path, env_name, pcmdi_from_nightly=True):
         pkgs += " mesalib"
     
     if pcmdi_from_nightly:
+        #channels = "-c cdat/label/{l} -c conda-forge -c pcmdi/label/nightly -c pcmdi".format(l=CONDA_LABEL)
         channels = "-c cdat/label/{l} -c conda-forge -c pcmdi/label/nightly -c pcmdi".format(l=CONDA_LABEL)
     else:
         channels = "-c cdat/label/{l} -c conda-forge -c pcmdi".format(l=CONDA_LABEL)
