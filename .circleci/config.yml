@@ -51,7 +51,7 @@ aliases:
     name: install_from_conda_channel
     command: |
       mkdir -p $WORKDIR
-      python scripts/install_from_channel.py -w $WORKDIR -v $ENV_PREFIX -p $PYTHON_VERSION -c $CONDA_LABEL -d $CDAT_VERSION
+      python scripts/install_from_channel.py -w $WORKDIR -v $ENV_PREFIX -p $PYTHON_VERSION -c $CONDA_LABEL
       ls $WORKDIR/miniconda/envs
     no_output_timeout: 30m
 
@@ -145,7 +145,7 @@ aliases:
        python run_tests.py -H -v 2 tests/test_plot_locators.py
        python run_tests.py -H -v 2 tests/test_edit_axis_locators.py
        RESULT=$?
-       echo "*** $PY_VER test result: "${RESULT} 
+       echo "**** $PY_VER test result: "${RESULT} 
        exit $RESULT
 
   - &prep_artifacts
@@ -564,7 +564,6 @@ jobs:
       CONDA_DIR: /Users/distiller/project/workdir/miniconda2
       ENV_PREFIX: cdat_v82_latest_channel
       BRANCH: master
-      CDAT_VERSION: 8.2
       CONDA_LABEL: v82
       LABEL: v8.2
       CDMS_LABEL: v3.1.4
@@ -607,7 +606,6 @@ jobs:
       CONDA_DIR: /home/circleci/project/workdir/miniconda2
       ENV_PREFIX: cdat_v82_latest_channel
       BRANCH: master
-      CDAT_VERSION: 8.2
       CONDA_LABEL: v82
       LABEL: v8.2
       CDMS_LABEL: v3.1.4
@@ -651,7 +649,6 @@ jobs:
       CONDA_DIR: /Users/distiller/project/workdir/miniconda3
       ENV_PREFIX: cdat_v82_latest_channel
       BRANCH: master
-      CDAT_VERSION: 8.2
       CONDA_LABEL: v82
       LABEL: v8.2
       CDMS_LABEL: v3.1.4
@@ -694,7 +691,6 @@ jobs:
       CONDA_DIR: /Users/distiller/project/workdir/miniconda3
       ENV_PREFIX: cdat_v82_latest_channel
       BRANCH: master
-      CDAT_VERSION: 8.2
       CONDA_LABEL: v82
       LABEL: v8.2
       CDMS_LABEL: v3.1.4
@@ -737,7 +733,6 @@ jobs:
       CONDA_DIR: /home/circleci/project/workdir/miniconda3
       ENV_PREFIX: cdat_v82_latest_channel
       BRANCH: master
-      CDAT_VERSION: 8.2
       CONDA_LABEL: v82
       LABEL: v8.2
       CDMS_LABEL: v3.1.4
@@ -781,7 +776,6 @@ jobs:
       CONDA_DIR: /home/circleci/project/workdir/miniconda3
       ENV_PREFIX: cdat_v82_latest_channel
       BRANCH: master
-      CDAT_VERSION: 8.2
       CONDA_LABEL: v82
       LABEL: v8.2
       CDMS_LABEL: v3.1.4
@@ -1379,16 +1373,6 @@ workflows:
           requires:
             - get_time_stamp
 
-      - macos_cdat_v82_latest_channel_py2:
-          requires:
-            - macos_py2_miniconda
-      - macos_cdat_v82_latest_channel_py3.6:
-          requires:
-            - macos_py3_miniconda
-      - macos_cdat_v82_latest_channel_py3.7:
-          requires:
-            - macos_py3_miniconda
-
       - macos_nightly_py2:
           requires:
             - macos_py2_miniconda
@@ -1399,6 +1383,35 @@ workflows:
           requires:
             - macos_py3_miniconda
    
+      - macos_cdat_v82_latest_channel_py2:
+          requires:
+            - macos_py2_miniconda
+      - macos_cdat_v82_latest_channel_py3.6:
+          requires:
+            - macos_py3_miniconda
+      - macos_cdat_v82_latest_channel_py3.7:
+          requires:
+            - macos_py3_miniconda
+
+      - macos_cdat-v82-nox_py2:
+          requires:
+            - macos_py2_miniconda
+      - macos_cdat-v82-nox_py3.6:
+          requires:
+            - macos_py3_miniconda
+      - macos_cdat-v82-nox_py3.7:
+          requires:
+            - macos_py3_miniconda
+      - macos_cdat-v82_py2:
+          requires:
+            - macos_py2_miniconda
+      - macos_cdat-v82_py3.6:
+          requires:
+            - macos_py3_miniconda
+      - macos_cdat-v82_py3.7:
+          requires:
+            - macos_py3_miniconda
+
       - linux_nightly_py2:      
           requires:
             - linux_py2_miniconda
@@ -1416,6 +1429,25 @@ workflows:
           requires:
             - linux_py3_miniconda
       - linux_cdat_v82_latest_channel_py3.7:
+          requires:
+            - linux_py3_miniconda
+
+      - linux_cdat-v82-nox_py2:
+          requires:
+            - linux_py2_miniconda
+      - linux_cdat-v82-nox_py3.6:
+          requires:
+            - linux_py3_miniconda
+      - linux_cdat-v82-nox_py3.7:
+          requires:
+            - linux_py3_miniconda
+      - linux_cdat-v82_py2:
+          requires:
+            - linux_py2_miniconda
+      - linux_cdat-v82_py3.6:
+          requires:
+            - linux_py3_miniconda
+      - linux_cdat-v82_py3.7:
           requires:
             - linux_py3_miniconda
 
@@ -1437,3 +1469,17 @@ workflows:
             - macos_cdat_v82_latest_channel_py3.7
             - linux_cdat_v82_latest_channel_py3.7
 
+      - collect_yamls_test_results:
+          requires:
+            - macos_cdat-v82-nox_py2
+            - macos_cdat-v82-nox_py3.6
+            - macos_cdat-v82-nox_py3.7
+            - macos_cdat-v82_py2
+            - macos_cdat-v82_py3.6
+            - macos_cdat-v82_py3.7
+            - linux_cdat-v82-nox_py2
+            - linux_cdat-v82-nox_py3.6
+            - linux_cdat-v82-nox_py3.7
+            - linux_cdat-v82_py2
+            - linux_cdat-v82_py3.6
+            - linux_cdat-v82_py3.7

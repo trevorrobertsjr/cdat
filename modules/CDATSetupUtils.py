@@ -83,7 +83,7 @@ def install_nightly(workdir, conda_path, env_prefix, py_ver):
     #    temp_settings = "{} \"ffmpeg>4\" \"libpng>1.6.34\"".format(temp_settings)
 
     #pkgs = "{p} {t}".format(p=base_pkgs, t=temp_settings)
-    pkgs = "{p} libnetcdf=4.6.2".format(p=base_pkgs)
+    pkgs = base_pkgs
 
     py_str = construct_conda_py_str(py_ver)
         
@@ -128,7 +128,7 @@ def install_from_env_file(workdir, conda_path, env_prefix, py_ver):
     return ret_code, env_name
 
 
-def install_from_channel(workdir, conda_path, env_prefix, py_ver, conda_label, cdat_version):
+def install_from_channel(workdir, conda_path, env_prefix, py_ver, conda_label):
 
     env_name = get_env_name(env_prefix, py_ver)
 
@@ -137,11 +137,10 @@ def install_from_channel(workdir, conda_path, env_prefix, py_ver, conda_label, c
 
     py_str = construct_conda_py_str(py_ver)
 
-    cmd = "{c} create -n {n} {channel} \"{p}\" cdat={d} mesalib".format(c=conda_cmd,
-                                                                        n=env_name,
-                                                                        channel=channel,
-                                                                        p=py_str,
-                                                                        d=cdat_version)
+    cmd = "{c} create -n {n} {channel} \"{p}\" cdat mesalib".format(c=conda_cmd,
+                                                                    n=env_name,
+                                                                    channel=channel,
+                                                                    p=py_str)
 
     ret_code = run_cmd(cmd, True, False, True)
     return ret_code, env_name

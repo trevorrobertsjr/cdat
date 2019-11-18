@@ -24,8 +24,6 @@ parser.add_argument("-p", "--py_ver", nargs='?', default='py2.7',
                     help="python version", choices=valid_py_vers)
 parser.add_argument("-c", "--conda_label", default='latest',
                     help="conda label")
-parser.add_argument("-d", "--cdat_version", default='8.2',
-                    help="cdat_version")
 
 args = parser.parse_args()
 
@@ -33,13 +31,12 @@ workdir = args.workdir
 env_prefix = args.env_prefix
 py_ver = args.py_ver
 conda_label = args.conda_label
-cdat_version = args.cdat_version
 
 status, conda_path = install_miniconda(workdir, py_ver)
 if status != SUCCESS:
     sys.exit(FAILURE)
 
-status, env_name = install_from_channel(workdir, conda_path, env_prefix, py_ver, conda_label, cdat_version)
+status, env_name = install_from_channel(workdir, conda_path, env_prefix, py_ver, conda_label)
 if status != SUCCESS:
     sys.exit(FAILURE)
 
