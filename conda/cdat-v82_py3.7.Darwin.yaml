@@ -1,7 +1,8 @@
 name: cdat-v82_py3.7
 channels:
-  - conda-forge
   - cdat/label/v82
+  - cdat-forge
+  - conda-forge
   - defaults
 dependencies:
   - alabaster=0.7.12

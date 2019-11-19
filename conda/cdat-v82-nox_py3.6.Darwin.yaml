@@ -1,7 +1,8 @@
 name: cdat-v82-nox_py3.6
 channels:
-  - conda-forge
   - cdat/label/v82
+  - cdat-forge
+  - conda-forge
   - defaults
 dependencies:
   - alabaster=0.7.12
