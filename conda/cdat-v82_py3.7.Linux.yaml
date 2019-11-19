@@ -1,7 +1,7 @@
 name: cdat-v82_py3.7
 channels:
-  - cdat/label/v82
   - conda-forge
+  - cdat/label/v82
   - defaults
 dependencies:
   - _libgcc_mutex=0.1
